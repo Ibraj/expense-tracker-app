@@ -1,0 +1,1464 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Expenses</title>
+<meta name="description" content="A personal expense tracker. Your data stays on this device.">
+<meta name="theme-color" content="#f3f4f1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e100f" media="(prefers-color-scheme: dark)">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Expenses">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232f7d57'/%3E%3Ctext x='32' y='45' font-size='38' font-family='Arial,sans-serif' font-weight='700' text-anchor='middle' fill='white'%3E%E2%82%A6%3C/text%3E%3C/svg%3E">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #f3f4f1; --card: #ffffff; --text: #171a18; --muted: #6a706b; --line: #e5e8e3;
+    --accent: #2f7d57; --on-accent: #ffffff; --danger: #c0392b; --soon: #a15c00;
+    --hero-from: #348f64; --hero-to: #1e5b40;
+    --shadow: 0 1px 2px rgba(20, 30, 25, .05), 0 8px 24px rgba(20, 30, 25, .06);
+    --radius: 16px;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e100f; --card: #171a18; --text: #ecefea; --muted: #98a09a; --line: #262b28;
+      --accent: #63c492; --on-accent: #08170f; --danger: #ff8f84; --soon: #f0b35a;
+      --hero-from: #1f6a49; --hero-to: #123c2a; --shadow: none;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font: 16px/1.45 -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent;
+  }
+  main {
+    max-width: 680px; margin: 0 auto;
+    padding: calc(20px + env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
+             calc(96px + env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  }
+  [hidden] { display: none !important; }
+  ul { list-style: none; margin: 0; padding: 0; }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  /* Controls: 16px text keeps iPhone from zooming in when a field is tapped. */
+  input, select, button {
+    font: inherit; min-height: 44px; padding: 9px 14px; border-radius: 12px;
+    border: 1px solid var(--line); color: var(--text);
+  }
+  input, select { background: var(--card); min-width: 0; }
+  input::placeholder { color: var(--muted); opacity: .8; }
+  button { cursor: pointer; background: var(--card); }
+
+  .top { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 16px; }
+  h1 { font-size: 1.7rem; font-weight: 750; letter-spacing: -.02em; margin: 0; }
+  .ghost { min-height: 36px; padding: 5px 14px; border-radius: 999px; font-size: .9rem; color: var(--muted); }
+
+  /* Summary card with the month switcher and totals */
+  .hero {
+    background: linear-gradient(145deg, var(--hero-from), var(--hero-to)); color: #fff;
+    border-radius: 22px; padding: 14px 18px 18px; margin-bottom: 14px; box-shadow: var(--shadow);
+  }
+  .monthbar { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; }
+  .monthbar .month { flex: 1; text-align: center; font-weight: 650; }
+  .monthbar button {
+    min-height: 34px; min-width: 34px; padding: 0 12px; border: none; border-radius: 999px;
+    background: rgba(255, 255, 255, .16); color: #fff; font-size: 1.25rem; line-height: 1;
+  }
+  .monthbar .thismonth { font-size: .8rem; }
+  .hero .figures { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 14px; align-items: end; }
+  .hero .label { color: rgba(255, 255, 255, .72); font-size: .82rem; }
+  .hero .amount {
+    font-size: clamp(1.6rem, 8vw, 2.4rem); font-weight: 720; letter-spacing: -.02em;
+    font-variant-numeric: tabular-nums; white-space: nowrap; line-height: 1.15;
+  }
+  .hero .amount.small { font-size: clamp(1rem, 4.6vw, 1.35rem); font-weight: 650; letter-spacing: 0; }
+  .hero .yearly { color: rgba(255, 255, 255, .82); font-size: .88rem; margin-top: 10px; }
+  .comparison { font-size: .88rem; color: rgba(255, 255, 255, .7); }
+  .comparison.up { color: #ffd2cc; }
+  .comparison.down { color: #cdf6df; }
+
+  .breakdown {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 12px 16px; margin-bottom: 14px; box-shadow: var(--shadow);
+  }
+  .breakdown summary { cursor: pointer; color: var(--muted); font-size: .9rem; font-weight: 600; }
+  #breakdownBars { display: grid; gap: 10px; margin-top: 12px; }
+  .barRow { display: grid; gap: 5px; width: 100%; min-height: 0; text-align: left; background: none; border: none; padding: 2px 0; }
+  .barTop { display: flex; justify-content: space-between; gap: 8px; font-size: .9rem; }
+  .barTop .barAmount { color: var(--muted); font-variant-numeric: tabular-nums; }
+  .barTrack { height: 8px; border-radius: 999px; background: var(--line); overflow: hidden; }
+  .barFill { display: block; height: 100%; border-radius: 999px; background: var(--cat); }
+
+  .reminder {
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    background: color-mix(in srgb, var(--soon) 11%, var(--card));
+    border: 1px solid color-mix(in srgb, var(--soon) 55%, var(--line)); color: var(--soon);
+    border-radius: 14px; padding: 8px 8px 8px 14px; margin-bottom: 14px; font-size: .9rem;
+  }
+  .reminder button { flex: none; min-height: 36px; padding: 4px 14px; background: none; color: inherit; border-color: currentColor; }
+
+  /* Add form */
+  .composer {
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 14px; margin-bottom: 18px; display: grid; gap: 12px; box-shadow: var(--shadow);
+  }
+  .composer .row { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 8px; }
+  .amountInput { font-size: 1.25rem; font-weight: 650; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chips button {
+    min-height: 36px; border-radius: 999px; padding: 4px 13px; font-size: .92rem; color: var(--muted);
+    border-color: var(--line); transition: background .12s, border-color .12s;
+  }
+  .chips button[aria-pressed=true] {
+    background: color-mix(in srgb, var(--cat, var(--accent)) 22%, var(--card));
+    border-color: var(--cat, var(--accent)); color: var(--text); font-weight: 600;
+  }
+  .extras { display: flex; gap: 18px; }
+  .linkButton {
+    min-height: 0; background: none; border: none; color: var(--muted); padding: 2px 0;
+    font-size: .9rem; text-decoration: underline dotted; text-underline-offset: 3px;
+  }
+  .labelPicker { display: grid; gap: 8px; }
+  .options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .field { display: grid; gap: 4px; }
+  .field > span { color: var(--muted); font-size: .78rem; font-weight: 600; }
+  .field input, .field select { width: 100%; }
+  .primary {
+    min-height: 48px; background: var(--accent); color: var(--on-accent); border-color: var(--accent);
+    font-weight: 650; font-size: 1.02rem;
+  }
+  .primary:active { filter: brightness(.94); }
+
+  /* Search and filters */
+  #search {
+    width: 100%; margin-bottom: 10px; padding-left: 40px;
+    background: var(--card) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='11' cy='11' r='7'/%3E%3Cpath d='M20 20l-3.5-3.5'/%3E%3C/svg%3E") no-repeat 14px center;
+  }
+  .tabs {
+    display: flex; gap: 6px; overflow-x: auto; margin: 0 -16px 8px; padding: 2px 16px 4px;
+    scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tabs button {
+    flex: none; min-height: 34px; color: var(--muted); border-radius: 999px; padding: 3px 13px;
+    font-size: .9rem; white-space: nowrap; border-color: var(--line);
+  }
+  .tabs button[aria-selected=true] {
+    background: color-mix(in srgb, var(--cat, var(--text)) 18%, var(--card));
+    border-color: var(--cat, var(--text)); color: var(--text); font-weight: 600;
+  }
+  .tabs .count { opacity: .65; margin-left: 5px; font-variant-numeric: tabular-nums; }
+
+  /* Entries */
+  #list li {
+    display: grid; grid-template-columns: 42px minmax(0, 1fr) auto;
+    grid-template-areas: "badge info price" "badge info actions";
+    column-gap: 12px; row-gap: 2px; align-items: start; cursor: pointer;
+    background: var(--card); border: 1px solid var(--line); border-radius: var(--radius);
+    padding: 12px; margin-bottom: 8px; box-shadow: var(--shadow); transition: border-color .15s;
+  }
+  #list li:hover { border-color: color-mix(in srgb, var(--text) 22%, var(--line)); }
+  #list li.heading, #list li.empty {
+    display: block; background: none; border: none; box-shadow: none; padding: 0; cursor: default;
+  }
+  #list li.heading { margin: 20px 0 8px; color: var(--muted); font-size: .8rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+  #list li.empty { color: var(--muted); text-align: center; padding: 28px 12px; }
+  .badge {
+    grid-area: badge; width: 42px; height: 42px; display: grid; place-items: center; border-radius: 14px;
+    font-size: 1.3rem; background: color-mix(in srgb, var(--cat) 20%, var(--card));
+  }
+  .info { grid-area: info; min-width: 0; }
+  .name { font-weight: 620; overflow-wrap: anywhere; line-height: 1.3; }
+  .date { color: var(--muted); font-size: .85rem; }
+  .note { font-size: .9rem; margin-top: 3px; overflow-wrap: anywhere; white-space: pre-line; }
+  .labels { display: flex; flex-wrap: wrap; gap: 4px; margin-top: 6px; }
+  .labelTag {
+    min-height: 0; background: none; color: var(--muted); border-radius: 999px; padding: 1px 9px; font-size: .75rem;
+  }
+  .labelTag:hover { color: var(--text); border-color: var(--muted); }
+  .price { grid-area: price; font-variant-numeric: tabular-nums; font-weight: 680; white-space: nowrap; text-align: right; }
+  .actions { grid-area: actions; justify-self: end; display: flex; }
+  .del, .again {
+    min-height: 34px; min-width: 36px; background: none; border: none; color: var(--muted);
+    padding: 0 6px; font-size: 1.1rem; border-radius: 10px;
+  }
+  .again:hover { color: var(--accent); }
+  .del:hover { color: var(--danger); }
+  #list li.soon { border-color: color-mix(in srgb, var(--danger) 55%, var(--line)); }
+  li.soon .name, li.soon .date, li.soon .price { color: var(--danger); }
+
+  #list li.editing { cursor: default; display: block; border-color: var(--accent); }
+  .editForm { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .editForm input[name=name], .editForm input[name=note], .editForm input[name=labels], .editForm .editActions { grid-column: 1 / -1; }
+  .editActions { display: flex; gap: 8px; justify-content: flex-end; }
+  .editActions button[type=submit] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); font-weight: 650; }
+
+  /* Categories panel */
+  dialog {
+    background: var(--card); color: var(--text); border: 1px solid var(--line); border-radius: 22px;
+    padding: 20px; width: min(480px, calc(100vw - 32px)); max-height: calc(100vh - 48px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, .35);
+  }
+  dialog::backdrop { background: rgba(0, 0, 0, .5); backdrop-filter: blur(3px); }
+  .dialogHead { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .dialogHead h2 { font-size: 1.2rem; margin: 0; }
+  #closeCategories { min-height: 36px; min-width: 36px; padding: 0; border-radius: 999px; }
+  #categoryList { display: grid; margin-bottom: 16px; }
+  #categoryList li { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+  .look {
+    flex: none; width: 34px; height: 34px; display: grid; place-items: center; border-radius: 12px;
+    background: color-mix(in srgb, var(--cat) 22%, var(--card));
+  }
+  .categoryText { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.3; }
+  .categoryName { overflow-wrap: anywhere; font-weight: 600; }
+  .categoryCount { color: var(--muted); font-size: .8rem; }
+  #categoryList li button { min-height: 34px; padding: 3px 12px; font-size: .85rem; }
+  #categoryForm { display: grid; gap: 10px; border-top: 1px solid var(--line); padding-top: 14px; }
+  #categoryForm h3 { margin: 0; font-size: 1rem; }
+  #categoryForm .row { display: grid; grid-template-columns: 70px 1fr; gap: 8px; }
+  .emojiInput { text-align: center; font-size: 1.2rem; }
+  .emojiChoices, .swatches { display: flex; flex-wrap: wrap; gap: 6px; }
+  .emojiChoices button { min-height: 38px; min-width: 38px; padding: 0; font-size: 1.15rem; }
+  .swatches button { min-height: 0; width: 30px; height: 30px; padding: 0; border-radius: 50%; background: var(--cat); border: 3px solid transparent; }
+  .swatches button[aria-pressed=true] { border-color: var(--text); }
+  .formActions { display: flex; gap: 8px; justify-content: flex-end; }
+  #categoryForm button[type=submit] { background: var(--accent); color: var(--on-accent); border-color: var(--accent); font-weight: 650; }
+  #categoryError { color: var(--danger); font-size: .85rem; min-height: 1.2em; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: calc(20px + env(safe-area-inset-bottom)); transform: translateX(-50%);
+    display: flex; align-items: center; gap: 14px; width: max-content; max-width: calc(100vw - 32px);
+    background: var(--text); color: var(--bg); border-radius: 14px;
+    padding: 8px 8px 8px 16px; box-shadow: 0 10px 30px rgba(0, 0, 0, .3);
+  }
+  .toast button { min-height: 34px; background: none; color: inherit; border-color: currentColor; padding: 3px 14px; }
+
+  .backup { margin-top: 30px; padding-top: 16px; border-top: 1px solid var(--line); }
+  .backup .actions { grid-area: auto; justify-self: stretch; display: flex; flex-wrap: wrap; gap: 8px; }
+  .backup .actions button { min-height: 38px; font-size: .88rem; padding: 4px 14px; color: var(--muted); }
+  .backup .status { color: var(--muted); font-size: .85rem; margin-top: 10px; }
+  .backup .status.problem { color: var(--danger); }
+
+  /* Phones: category buttons scroll sideways in one row instead of taking up the screen. */
+  @media (max-width: 560px) {
+    .composer .chips { flex-wrap: nowrap; overflow-x: auto; margin: 0 -14px; padding: 2px 14px 4px; scrollbar-width: none; }
+    .composer .chips::-webkit-scrollbar { display: none; }
+    .composer .chips button { flex: none; white-space: nowrap; }
+    .composer #labelChips { flex-wrap: wrap; overflow: visible; margin: 0; padding: 0; }
+  }
+  /* Very narrow screens: stack the two totals instead of squeezing them side by side. */
+  @media (max-width: 360px) {
+    .hero .figures { grid-template-columns: 1fr; gap: 8px; }
+    .hero .amount { font-size: 1.9rem; }
+    .hero .amount.small { font-size: 1.15rem; }
+    .composer .row { grid-template-columns: 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+<main>
+  <header class="top">
+    <h1>Expenses</h1>
+    <button type="button" id="manageCategories" class="ghost">Categories</button>
+  </header>
+
+  <section class="hero" aria-label="Summary">
+    <div class="monthbar">
+      <button type="button" id="previousMonth" aria-label="Previous month">‹</button>
+      <div class="month" id="monthName"></div>
+      <button type="button" class="thismonth" id="thisMonth" hidden>This month</button>
+      <button type="button" id="nextMonth" aria-label="Next month">›</button>
+    </div>
+    <div class="figures">
+      <div>
+        <div class="label" id="totalLabel">Total spent</div>
+        <div class="amount" id="total">0.00</div>
+      </div>
+      <div>
+        <div class="label">Recurring per year</div>
+        <div class="amount small" id="yearTotal">0.00</div>
+      </div>
+    </div>
+    <div class="yearly" id="yearly"></div>
+    <div class="comparison" id="comparison"></div>
+  </section>
+
+  <details class="breakdown" id="breakdown">
+    <summary>By category</summary>
+    <div id="breakdownBars"></div>
+  </details>
+
+  <div class="reminder" id="backupReminder" hidden>
+    <span id="backupReminderText"></span>
+    <button type="button" id="reminderExport">Export backup</button>
+  </div>
+
+  <form id="form" class="composer" autocomplete="off">
+    <div class="row">
+      <input name="price" class="amountInput" type="number" inputmode="decimal" min="0" step="0.01"
+             placeholder="₦ amount" aria-label="Amount in naira" required>
+      <input name="name" list="nameOptions" placeholder="What for?" aria-label="What it was for (optional)">
+    </div>
+    <div class="chips" id="chips" role="group" aria-label="Category"></div>
+    <div class="extras">
+      <button type="button" class="linkButton" id="addLabelToggle">+ label</button>
+      <button type="button" class="linkButton" id="addNoteToggle">+ note</button>
+    </div>
+    <div class="labelPicker" id="labelPicker" hidden>
+      <div class="chips" id="labelChips" role="group" aria-label="Labels"></div>
+      <input id="newLabel" placeholder="New label, press Enter" aria-label="New label">
+    </div>
+    <input id="newNote" placeholder="Add a note, e.g. who it was for or why" aria-label="Note" maxlength="300" hidden>
+    <div class="options">
+      <label class="field"><span id="dateLabel">Date</span>
+        <input name="date" type="date" required>
+      </label>
+      <label class="field"><span>Repeats</span>
+        <select name="repeat" aria-label="How often it repeats">
+          <option value="once">Never</option>
+          <option value="monthly">Every month</option>
+          <option value="yearly">Every year</option>
+        </select>
+      </label>
+    </div>
+    <button type="submit" class="primary">Add expense</button>
+  </form>
+  <datalist id="categoryOptions"></datalist>
+  <datalist id="nameOptions"></datalist>
+
+  <input type="search" id="search" placeholder="Search name, note, category or label" aria-label="Search" hidden>
+  <nav class="tabs" id="tabs" role="tablist" aria-label="Categories"></nav>
+  <nav class="tabs" id="labelTabs" role="tablist" aria-label="Labels" hidden></nav>
+  <ul id="list"></ul>
+
+  <section class="backup" aria-label="Backup">
+    <div class="actions">
+      <button type="button" id="exportButton">Export backup</button>
+      <button type="button" id="importButton">Import backup</button>
+      <button type="button" id="linkFileButton" hidden>Auto-save to a file</button>
+      <button type="button" id="reconnectFileButton" hidden>Reconnect file</button>
+      <button type="button" id="unlinkFileButton" hidden>Stop auto-saving</button>
+    </div>
+    <input type="file" id="importInput" accept=".json,application/json" hidden>
+    <div class="status" id="backupStatus"></div>
+  </section>
+</main>
+
+<dialog id="categoryDialog" aria-labelledby="categoryDialogTitle">
+  <div class="dialogHead">
+    <h2 id="categoryDialogTitle">Categories</h2>
+    <button type="button" id="closeCategories" aria-label="Close">✕</button>
+  </div>
+  <ul id="categoryList"></ul>
+  <form id="categoryForm" autocomplete="off">
+    <h3 id="categoryFormTitle">Add a category</h3>
+    <div class="row">
+      <input name="emoji" class="emojiInput" placeholder="🙂" aria-label="Emoji">
+      <input name="name" placeholder="Category name" aria-label="Category name" required>
+    </div>
+    <div class="emojiChoices" id="emojiChoices" aria-label="Emoji suggestions"></div>
+    <div class="swatches" id="swatches" role="group" aria-label="Color"></div>
+    <div id="categoryError" role="alert"></div>
+    <div class="formActions">
+      <button type="button" id="cancelCategoryEdit" hidden>Cancel</button>
+      <button type="submit" id="saveCategory">Add category</button>
+    </div>
+  </form>
+</dialog>
+
+<div class="toast" id="toast" role="status" hidden>
+  <span id="toastText"></span>
+  <button type="button" id="toastAction">Undo</button>
+</div>
+
+<script>
+  // Saved data keys. These names must not change, or existing saved entries would be lost.
+  const KEY = "subscriptions.v1";
+  const CATEGORY_KEY = "subscriptions.category";
+  const LAST_CHANGE_KEY = "subscriptions.lastChange";
+  const LAST_BACKUP_KEY = "subscriptions.lastBackup";
+  const CATEGORIES_KEY = "subscriptions.categories";
+  const BREAKDOWN_KEY = "subscriptions.breakdownOpen";
+  let linkedFile = null;            // file handle for auto-saving (Chromium browsers only)
+  let linkedFileState = "none";     // none | connected | needs-permission
+  let fileWriteQueue = Promise.resolve();
+
+  const ALL = "All";
+  const SWATCHES = ["#e5732f", "#e07a5f", "#d4a72c", "#6fae4f", "#2f9e8f", "#3d85c6", "#6c7ae0", "#8e7cc3", "#d96ba0", "#8a8a8a"];
+  const EMOJI_SUGGESTIONS = ["🍔", "🚌", "📱", "🛍️", "🧾", "🤖", "🎬", "📡", "☁️", "💬", "🏠", "💊", "🎓", "✈️", "🎁", "💡", "🐶", "📦"];
+  // Categories the tracker starts with. The user's own list is saved under CATEGORIES_KEY.
+  const DEFAULT_CATEGORIES = [
+    { name: "Food", emoji: "🍔", color: "#e5732f" },
+    { name: "Transport", emoji: "🚌", color: "#3d85c6" },
+    { name: "Airtime & data", emoji: "📱", color: "#8e7cc3" },
+    { name: "Shopping", emoji: "🛍️", color: "#d96ba0" },
+    { name: "Bills", emoji: "🧾", color: "#d4a72c" },
+    { name: "AI", emoji: "🤖", color: "#2f9e8f" },
+    { name: "Entertainment", emoji: "🎬", color: "#e07a5f" },
+    { name: "Internet", emoji: "📡", color: "#6c7ae0" },
+    { name: "Cloud storage", emoji: "☁️", color: "#3d85c6" },
+    { name: "Social", emoji: "💬", color: "#6fae4f" },
+    { name: "Other", emoji: "📦", color: "#8a8a8a" },
+  ];
+  // Every amount is in naira (₦), which is what the user pays in.
+  const money = new Intl.NumberFormat(undefined, { style: "currency", currency: "NGN", currencyDisplay: "narrowSymbol" });
+  const shortDateFormat = new Intl.DateTimeFormat(undefined, { weekday: "short", day: "numeric", month: "short" });
+  const longDateFormat = new Intl.DateTimeFormat(undefined, { weekday: "short", day: "numeric", month: "short", year: "numeric" });
+  // "Mon, 19 Oct", with the year added only when it is not the current year.
+  function describeDate(isoDate) {
+    const date = parse(isoDate);
+    return (date.getFullYear() === new Date().getFullYear() ? shortDateFormat : longDateFormat).format(date);
+  }
+  const monthFormat = new Intl.DateTimeFormat(undefined, { month: "long", year: "numeric" });
+
+  // Starting list, used only the first time (when nothing has been saved yet). Prices in NGN.
+  // Entries without a "type" are recurring (monthly, or yearly when frequency is "yearly"); one-offs have type "once".
+  const STARTER = [];
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (raw === null) return STARTER.map((entry, index) => ({ id: "starter" + index, ...entry }));
+      return JSON.parse(raw) || [];
+    } catch { return []; }
+  }
+  // Entries saved before categories existed get one from the starter list by name, otherwise "Other".
+  function fillMissingCategories() {
+    for (const entry of entries) {
+      if (entry.category) continue;
+      const match = STARTER.find(starter => starter.name === entry.name);
+      entry.category = match ? match.category : "Other";
+    }
+  }
+  function upgradeOlderEntries() {}
+
+  function save() {
+    ensureCategories();
+    try {
+      localStorage.setItem(KEY, JSON.stringify(entries));
+      localStorage.setItem(CATEGORIES_KEY, JSON.stringify(categories));
+    } catch {}
+    saveToLinkedFile();
+  }
+
+  // ── Categories (name, emoji, color) and labels ──
+
+  function firstGrapheme(text) {
+    const trimmed = String(text || "").trim();
+    if (!trimmed) return "";
+    if (window.Intl && Intl.Segmenter) {
+      return new Intl.Segmenter(undefined, { granularity: "grapheme" }).segment(trimmed)[Symbol.iterator]().next().value.segment;
+    }
+    return Array.from(trimmed)[0];
+  }
+
+  // Keeps only well-formed categories, so a damaged saved list or backup can't break the page.
+  function cleanCategories(list) {
+    const cleaned = [];
+    for (const item of list) {
+      const name = item && typeof item.name === "string" ? item.name.trim() : "";
+      if (!name || cleaned.some(existing => existing.name === name)) continue;
+      cleaned.push({
+        name,
+        emoji: firstGrapheme(item.emoji) || "🏷️",
+        color: /^#[0-9a-f]{6}$/i.test(item.color) ? item.color : SWATCHES[cleaned.length % SWATCHES.length],
+      });
+    }
+    return cleaned;
+  }
+
+  function loadCategories() {
+    try {
+      const list = JSON.parse(localStorage.getItem(CATEGORIES_KEY));
+      const cleaned = Array.isArray(list) ? cleanCategories(list) : [];
+      if (cleaned.length) return cleaned;
+    } catch {}
+    return DEFAULT_CATEGORIES.map(category => ({ ...category }));
+  }
+
+  // Every category an entry uses (and "Other") must exist in the list, so it always has a look.
+  function ensureCategories() {
+    const known = new Set(categories.map(category => category.name));
+    for (const name of [...new Set(entries.map(entry => entry.category)), "Other"]) {
+      if (known.has(name)) continue;
+      categories.push({ name, emoji: name === "Other" ? "📦" : "🏷️", color: name === "Other" ? "#8a8a8a" : SWATCHES[categories.length % SWATCHES.length] });
+      known.add(name);
+    }
+  }
+
+  function categoryLook(name) {
+    return categories.find(category => category.name === name) || { name, emoji: "🏷️", color: "#8a8a8a" };
+  }
+
+  // Labels are short lowercase words like "work" or "trip-abuja"; entries can have several.
+  function normalizeLabels(value) {
+    const parts = Array.isArray(value) ? value : String(value).split(",");
+    const labels = [];
+    for (const part of parts) {
+      const label = String(part).trim().toLowerCase().replace(/^#+/, "").replace(/\s+/g, "-").slice(0, 24);
+      if (label && !labels.includes(label)) labels.push(label);
+    }
+    return labels;
+  }
+  function allLabels() {
+    return [...new Set(entries.flatMap(entry => entry.labels || []))].sort();
+  }
+
+  // Dates are stored as "YYYY-MM-DD" and handled in local time to avoid timezone shifts.
+  function parse(text) { const [year, month, day] = text.split("-").map(Number); return new Date(year, month - 1, day); }
+  function formatDate(date) {
+    return date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, "0") + "-" + String(date.getDate()).padStart(2, "0");
+  }
+  function today() { const now = new Date(); return new Date(now.getFullYear(), now.getMonth(), now.getDate()); }
+
+  function isRecurring(entry) { return entry.type !== "once"; }
+  function monthKeyOf(isoDate) { return isoDate.slice(0, 7); }
+  function shiftMonth(monthKey, amount) {
+    const [year, month] = monthKey.split("-").map(Number);
+    return monthKeyOf(formatDate(new Date(year, month - 1 + amount, 1)));
+  }
+  function describeMonth(monthKey) {
+    const [year, month] = monthKey.split("-").map(Number);
+    return monthFormat.format(new Date(year, month - 1, 1));
+  }
+
+  // Add months (1 for monthly, 12 for yearly), clamping to the last day (Jan 31 -> Feb 28)
+  // while keeping the original billing day.
+  function addMonths(date, day, count) {
+    const year = date.getFullYear(), month = date.getMonth() + count;
+    const last = new Date(year, month + 1, 0).getDate();
+    return new Date(year, month, Math.min(day, last));
+  }
+
+  // Once a recurring renewal date has passed, roll it forward to the next renewal.
+  function rollForward() {
+    const now = today();
+    let changed = false;
+    for (const entry of entries) {
+      if (!isRecurring(entry)) continue;
+      let date = parse(entry.date);
+      const day = entry.day || date.getDate();
+      const step = entry.frequency === "yearly" ? 12 : 1;
+      while (date < now) { date = addMonths(date, day, step); changed = true; }
+      entry.day = day;
+      entry.date = formatDate(date);
+    }
+    if (changed) save();
+  }
+
+  function daysUntil(entry) { return Math.round((parse(entry.date) - today()) / 86400000); }
+  function sumPrices(list) { return list.reduce((sum, entry) => sum + entry.price, 0); }
+  // What an entry adds to a month: yearly costs count as one twelfth every month.
+  function monthlyAmount(entry) { return entry.frequency === "yearly" && isRecurring(entry) ? entry.price / 12 : entry.price; }
+  function sumMonthly(list) { return list.reduce((sum, entry) => sum + monthlyAmount(entry), 0); }
+  function newEntryId() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
+
+  // Sets how an entry repeats: "once" (a one-off), "monthly" or "yearly".
+  function applyRepeat(entry, repeat) {
+    delete entry.type; delete entry.frequency; delete entry.day;
+    if (repeat === "once") { entry.type = "once"; return; }
+    entry.day = parse(entry.date).getDate();
+    if (repeat === "yearly") entry.frequency = "yearly";
+  }
+
+  // ── Rendering ──
+
+  function entriesCountingIn(monthKey) {
+    return entries.filter(entry => isRecurring(entry) || monthKeyOf(entry.date) === monthKey);
+  }
+
+  function matchesSearch(entry) {
+    if (!searchText) return true;
+    return [entry.name, entry.category, entry.note || "", ...(entry.labels || []), String(entry.price)].join(" ").toLowerCase().includes(searchText);
+  }
+
+  function render() {
+    // Recurring entries count in every month; one-off expenses only in the month they happened.
+    const monthEntries = entriesCountingIn(selectedMonth).filter(matchesSearch);
+    const labelsInMonth = new Set(monthEntries.flatMap(entry => entry.labels || []));
+    const activeLabel = labelsInMonth.has(selectedLabel) ? selectedLabel : "";
+    const labeled = monthEntries.filter(entry => !activeLabel || (entry.labels || []).includes(activeLabel));
+    const categoryCounts = new Map();
+    for (const entry of labeled) categoryCounts.set(entry.category, (categoryCounts.get(entry.category) || 0) + 1);
+    const activeCategory = categoryCounts.has(selectedCategory) ? selectedCategory : ALL;
+    const visible = activeCategory === ALL ? labeled : labeled.filter(entry => entry.category === activeCategory);
+    const labelCounts = new Map();
+    for (const entry of monthEntries.filter(entry => activeCategory === ALL || entry.category === activeCategory)) {
+      for (const label of entry.labels || []) labelCounts.set(label, (labelCounts.get(label) || 0) + 1);
+    }
+    if (activeLabel && !labelCounts.has(activeLabel)) labelCounts.set(activeLabel, 0);
+
+    document.getElementById("search").hidden = !entries.length;
+    renderMonthBar();
+    renderTabs(labeled.length, categoryCounts, activeCategory);
+    renderLabelTabs(labelCounts, activeLabel);
+    renderChips();
+    renderLabelChips();
+    renderCategoryOptions();
+    renderNameOptions();
+    renderList(visible);
+    renderTotals(visible, activeCategory, activeLabel);
+    renderComparison(visible, activeCategory, activeLabel);
+    renderBreakdown(labeled);
+    renderBackupReminder();
+  }
+
+  // "₦X more than last month", shown once last month has some one-off spending to compare with.
+  function renderComparison(visible, activeCategory, activeLabel) {
+    const element = document.getElementById("comparison");
+    const previousKey = shiftMonth(selectedMonth, -1);
+    const previous = entriesCountingIn(previousKey).filter(matchesSearch).filter(entry =>
+      (activeCategory === ALL || entry.category === activeCategory)
+      && (!activeLabel || (entry.labels || []).includes(activeLabel)));
+    element.className = "comparison";
+    if (!previous.some(entry => !isRecurring(entry))) { element.textContent = ""; return; }
+    const difference = sumMonthly(visible) - sumMonthly(previous);
+    if (Math.abs(difference) < 0.005) {
+      element.textContent = `Same as ${describeMonth(previousKey)}`;
+    } else {
+      element.textContent = `${money.format(Math.abs(difference))} ${difference > 0 ? "more" : "less"} than ${describeMonth(previousKey)}`;
+      element.classList.add(difference > 0 ? "up" : "down");
+    }
+  }
+
+  // Where this month's money went. Tapping a bar filters the list to that category.
+  function renderBreakdown(labeled) {
+    const container = document.getElementById("breakdownBars");
+    container.innerHTML = "";
+    const totals = new Map();
+    for (const entry of labeled) totals.set(entry.category, (totals.get(entry.category) || 0) + monthlyAmount(entry));
+    const grandTotal = [...totals.values()].reduce((sum, amount) => sum + amount, 0);
+    if (!grandTotal) {
+      const note = document.createElement("div");
+      note.className = "date";
+      note.textContent = "Nothing to show yet.";
+      container.appendChild(note);
+      return;
+    }
+    for (const [name, amount] of [...totals.entries()].sort((a, b) => b[1] - a[1])) {
+      const look = categoryLook(name);
+      const share = amount / grandTotal;
+      const row = document.createElement("button");
+      row.type = "button";
+      row.className = "barRow";
+      row.style.setProperty("--cat", look.color);
+      row.innerHTML = `
+        <span class="barTop"><span class="barName"></span><span class="barAmount"></span></span>
+        <span class="barTrack"><span class="barFill"></span></span>`;
+      row.querySelector(".barName").textContent = `${look.emoji} ${name}`;
+      row.querySelector(".barAmount").textContent = `${money.format(amount)} · ${Math.round(share * 100)}%`;
+      row.querySelector(".barFill").style.width = Math.max(share * 100, 2) + "%";
+      row.onclick = () => { selectCategory(name); render(); };
+      container.appendChild(row);
+    }
+  }
+
+  function renderMonthBar() {
+    document.getElementById("monthName").textContent = describeMonth(selectedMonth);
+    document.getElementById("thisMonth").hidden = selectedMonth === monthKeyOf(formatDate(today()));
+  }
+
+  function renderTotals(visible, activeCategory, activeLabel) {
+    const recurring = visible.filter(isRecurring);
+    const oneOff = visible.filter(entry => !isRecurring(entry));
+    const recurringTotal = sumMonthly(recurring);
+    const oneOffTotal = sumPrices(oneOff);
+    document.getElementById("totalLabel").textContent = "Total spent";
+    document.getElementById("total").textContent = money.format(recurringTotal + oneOffTotal);
+    document.getElementById("yearTotal").textContent = money.format(recurringTotal * 12);
+    const where = (activeCategory === ALL ? "" : ` · ${activeCategory}`) + (activeLabel ? ` · #${activeLabel}` : "");
+    document.getElementById("yearly").textContent = visible.length
+      ? `${money.format(recurringTotal)} recurring + ${money.format(oneOffTotal)} one-off${where}`
+      : "";
+  }
+
+  function renderList(visible) {
+    const list = document.getElementById("list");
+    list.innerHTML = "";
+    if (!visible.length) {
+      appendNote(list, "empty", searchText ? "Nothing matches your search." : "Nothing here yet. Add an expense above, or use Import backup below to bring in a saved list.");
+      return;
+    }
+    const oneOff = visible.filter(entry => !isRecurring(entry))
+      .sort((a, b) => b.date.localeCompare(a.date) || a.name.localeCompare(b.name));
+    const recurring = visible.filter(isRecurring)
+      .sort((a, b) => a.date.localeCompare(b.date) || a.name.localeCompare(b.name));
+    if (oneOff.length) {
+      appendNote(list, "heading", `Spent in ${describeMonth(selectedMonth)}`);
+      for (const entry of oneOff) list.appendChild(createEntryItem(entry));
+    }
+    if (recurring.length) {
+      appendNote(list, "heading", "Recurring every month");
+      for (const entry of recurring) list.appendChild(createEntryItem(entry));
+    }
+  }
+
+  function appendNote(list, className, text) {
+    const item = document.createElement("li");
+    item.className = className;
+    item.textContent = text;
+    list.appendChild(item);
+  }
+
+  function createEntryItem(entry) {
+    if (entry.id === editingId) return createEditItem(entry);
+    const item = document.createElement("li");
+    const days = daysUntil(entry);
+    if (isRecurring(entry) && days <= 7) item.className = "soon";
+    item.tabIndex = 0;
+    item.title = "Tap to edit";
+    item.innerHTML = `
+      <div class="badge"></div>
+      <div class="info">
+        <div class="name"></div>
+        <div class="date"></div>
+        <div class="note"></div>
+        <div class="labels"></div>
+      </div>
+      <div class="price"></div>
+      <div class="actions">
+        <button class="again" title="Add again today" aria-label="Add again today">↻</button>
+        <button class="del" title="Delete" aria-label="Delete">✕</button>
+      </div>`;
+    item.querySelector(".name").textContent = entry.name;
+    const look = categoryLook(entry.category);
+    const badge = item.querySelector(".badge");
+    badge.textContent = look.emoji;
+    badge.title = entry.category;
+    badge.style.setProperty("--cat", look.color);
+    const noteBox = item.querySelector(".note");
+    noteBox.textContent = entry.note || "";
+    noteBox.hidden = !entry.note;
+    const labelBox = item.querySelector(".labels");
+    labelBox.hidden = !(entry.labels || []).length;
+    for (const label of entry.labels || []) {
+      const labelButton = document.createElement("button");
+      labelButton.type = "button";
+      labelButton.className = "labelTag";
+      labelButton.textContent = "#" + label;
+      labelButton.title = `Show only #${label}`;
+      labelButton.onclick = () => { selectedLabel = label; render(); };
+      labelBox.appendChild(labelButton);
+    }
+    item.querySelector(".price").textContent = money.format(entry.price)
+      + (!isRecurring(entry) ? "" : entry.frequency === "yearly" ? " /yr" : " /mo");
+    if (isRecurring(entry)) {
+      const when = days === 0 ? "today" : days === 1 ? "tomorrow" : `in ${days} days`;
+      item.querySelector(".date").textContent = `${entry.category} · Renews ${describeDate(entry.date)} · ${when}`;
+    } else {
+      item.querySelector(".date").textContent = `${entry.category} · ${describeDate(entry.date)}`;
+    }
+    item.querySelector(".del").onclick = () => deleteEntry(entry);
+    const againButton = item.querySelector(".again");
+    againButton.hidden = isRecurring(entry);
+    againButton.onclick = () => logAgain(entry);
+    item.addEventListener("click", event => { if (!event.target.closest("button")) startEditing(entry.id); });
+    item.addEventListener("keydown", event => { if (event.key === "Enter" && event.target === item) startEditing(entry.id); });
+    return item;
+  }
+
+  function createEditItem(entry) {
+    const item = document.createElement("li");
+    item.className = "editing";
+    item.innerHTML = `
+      <form class="editForm" autocomplete="off">
+        <input name="name" placeholder="Name" aria-label="Name" required>
+        <input name="price" type="number" inputmode="decimal" min="0" step="0.01" aria-label="Amount in naira" required>
+        <input name="date" type="date" aria-label="Date" required>
+        <input name="category" list="categoryOptions" placeholder="Category" aria-label="Category" required>
+        <select name="frequency" aria-label="How often it repeats">
+          <option value="once">Doesn't repeat</option>
+          <option value="monthly">Every month</option>
+          <option value="yearly">Every year</option>
+        </select>
+        <input name="note" placeholder="Note" aria-label="Note" maxlength="300">
+        <input name="labels" placeholder="Labels, separated by commas" aria-label="Labels">
+        <div class="editActions">
+          <button type="button" class="cancel">Cancel</button>
+          <button type="submit">Save</button>
+        </div>
+      </form>`;
+    const fields = item.querySelector("form").elements;
+    fields.name.value = entry.name;
+    fields.price.value = entry.price;
+    fields.date.value = entry.date;
+    fields.category.value = entry.category;
+    fields.labels.value = (entry.labels || []).join(", ");
+    fields.note.value = entry.note || "";
+    fields.frequency.value = !isRecurring(entry) ? "once" : entry.frequency === "yearly" ? "yearly" : "monthly";
+    item.querySelector("form").addEventListener("submit", event => {
+      event.preventDefault();
+      const price = Math.round(parseFloat(fields.price.value) * 100) / 100;
+      const name = fields.name.value.trim();
+      const category = fields.category.value.trim();
+      if (!name || !category || !(price >= 0) || !fields.date.value) return;
+      Object.assign(entry, { name, price, category, date: fields.date.value });
+      const labels = normalizeLabels(fields.labels.value);
+      if (labels.length) entry.labels = labels; else delete entry.labels;
+      const note = fields.note.value.trim();
+      if (note) entry.note = note; else delete entry.note;
+      applyRepeat(entry, fields.frequency.value);
+      if (isRecurring(entry)) rollForward(); else selectedMonth = monthKeyOf(entry.date);
+      editingId = null;
+      recordChange(); save(); render();
+    });
+    item.querySelector(".cancel").onclick = () => { editingId = null; render(); };
+    item.addEventListener("keydown", event => { if (event.key === "Escape") { editingId = null; render(); } });
+    return item;
+  }
+
+  // One tap to log the same expense again, dated today.
+  function logAgain(entry) {
+    const copy = {
+      id: newEntryId(), name: entry.name, price: entry.price, date: formatDate(today()),
+      category: entry.category, type: "once",
+    };
+    if (entry.labels) copy.labels = [...entry.labels];
+    entries.push(copy);
+    selectedMonth = monthKeyOf(copy.date);
+    recordChange(); save(); render();
+    showToast(`Added ${entry.name} again`, () => {
+      entries = entries.filter(item => item.id !== copy.id);
+      recordChange(); save(); render();
+    });
+  }
+
+  function startEditing(entryId) {
+    editingId = entryId;
+    render();
+    const amountField = document.querySelector(".editForm input[name=price]");
+    if (amountField) amountField.focus();
+  }
+
+  // Delete right away and offer Undo, instead of asking "are you sure?" every time.
+  function deleteEntry(entry) {
+    const position = entries.indexOf(entry);
+    entries.splice(position, 1);
+    if (editingId === entry.id) editingId = null;
+    recordChange(); save(); render();
+    showToast(`Deleted ${entry.name}`, () => {
+      entries.splice(Math.min(position, entries.length), 0, entry);
+      recordChange(); save(); render();
+    });
+  }
+
+  let toastTimer = null;
+  let toastAction = null;
+  function showToast(text, undoAction) {
+    toastAction = undoAction;
+    document.getElementById("toastText").textContent = text;
+    document.getElementById("toast").hidden = false;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(hideToast, 7000);
+  }
+  function hideToast() {
+    clearTimeout(toastTimer);
+    toastAction = null;
+    document.getElementById("toast").hidden = true;
+  }
+  document.getElementById("toastAction").onclick = () => {
+    const action = toastAction;
+    hideToast();
+    if (action) action();
+  };
+
+  function renderTabs(totalCount, categoryCounts, activeCategory) {
+    const tabs = document.getElementById("tabs");
+    tabs.innerHTML = "";
+    tabs.hidden = !totalCount;
+    const names = [...categoryCounts.keys()].sort((a, b) => a.localeCompare(b));
+    for (const name of [ALL, ...names]) {
+      const count = name === ALL ? totalCount : categoryCounts.get(name);
+      const tab = document.createElement("button");
+      tab.type = "button";
+      tab.setAttribute("role", "tab");
+      tab.setAttribute("aria-selected", String(name === activeCategory));
+      if (name === ALL) {
+        tab.textContent = ALL;
+      } else {
+        const look = categoryLook(name);
+        tab.textContent = `${look.emoji} ${name}`;
+        tab.style.setProperty("--cat", look.color);
+      }
+      const badge = document.createElement("span");
+      badge.className = "count";
+      badge.textContent = count;
+      tab.appendChild(badge);
+      tab.onclick = () => { selectCategory(name); render(); };
+      tabs.appendChild(tab);
+    }
+  }
+
+  // Second row of filters, shown only when some entries this month have labels.
+  function renderLabelTabs(labelCounts, activeLabel) {
+    const tabs = document.getElementById("labelTabs");
+    tabs.innerHTML = "";
+    tabs.hidden = !labelCounts.size;
+    const choices = [["", "All labels"], ...[...labelCounts.keys()].sort().map(label => [label, "#" + label])];
+    for (const [label, text] of choices) {
+      const tab = document.createElement("button");
+      tab.type = "button";
+      tab.setAttribute("role", "tab");
+      tab.setAttribute("aria-selected", String(label === activeLabel));
+      tab.textContent = text;
+      if (label) {
+        const badge = document.createElement("span");
+        badge.className = "count";
+        badge.textContent = labelCounts.get(label);
+        tab.appendChild(badge);
+      }
+      tab.onclick = () => { selectedLabel = label; render(); };
+      tabs.appendChild(tab);
+    }
+  }
+
+  // Category buttons in the add form: one tap picks the category.
+  function renderChips() {
+    if (!categories.some(category => category.name === formCategory)) formCategory = categories[0].name;
+    const chips = document.getElementById("chips");
+    chips.innerHTML = "";
+    for (const category of categories) {
+      const chip = document.createElement("button");
+      chip.type = "button";
+      chip.textContent = `${category.emoji} ${category.name}`;
+      chip.style.setProperty("--cat", category.color);
+      chip.setAttribute("aria-pressed", String(category.name === formCategory));
+      chip.onclick = () => { formCategory = category.name; categoryChosen = true; renderChips(); f.price.focus(); };
+      chips.appendChild(chip);
+    }
+    const newChip = document.createElement("button");
+    newChip.type = "button";
+    newChip.textContent = "+ New";
+    newChip.onclick = () => openCategoryManager();
+    chips.appendChild(newChip);
+  }
+
+  // Labels in the add form are optional and tucked away behind "+ label".
+  function renderLabelChips() {
+    const container = document.getElementById("labelChips");
+    container.innerHTML = "";
+    for (const label of new Set([...allLabels(), ...formLabels])) {
+      const chip = document.createElement("button");
+      chip.type = "button";
+      chip.textContent = "#" + label;
+      chip.setAttribute("aria-pressed", String(formLabels.has(label)));
+      chip.onclick = () => {
+        if (formLabels.has(label)) formLabels.delete(label); else formLabels.add(label);
+        renderLabelChips();
+      };
+      container.appendChild(chip);
+    }
+    document.getElementById("addLabelToggle").textContent = formLabels.size
+      ? `# ${[...formLabels].join(", ")}` : "+ label";
+  }
+
+  function renderCategoryOptions() {
+    const options = document.getElementById("categoryOptions");
+    options.innerHTML = "";
+    for (const category of categories) {
+      const option = document.createElement("option");
+      option.value = category.name;
+      options.appendChild(option);
+    }
+  }
+
+  function selectCategory(name) {
+    selectedCategory = name;
+    try { localStorage.setItem(CATEGORY_KEY, name); } catch {}
+  }
+
+  // ── Startup and the add form ──
+
+  let entries = load();
+  fillMissingCategories();
+  upgradeOlderEntries();
+  let categories = loadCategories();
+  ensureCategories();
+  let selectedCategory = ALL;
+  try { selectedCategory = localStorage.getItem(CATEGORY_KEY) || ALL; } catch {}
+  let selectedMonth = monthKeyOf(formatDate(today()));
+  let formCategory = "Food";
+  let selectedLabel = "";
+  let searchText = "";
+  let categoryChosen = false;   // true once the user taps a category for the entry being added
+  const formLabels = new Set();
+  let editingId = null;
+  rollForward();
+  save();
+
+  const form = document.getElementById("form");
+  const f = form.elements;
+  function resetDateField() {
+    f.date.value = formatDate(today());
+    document.getElementById("dateLabel").textContent = f.repeat.value === "once" ? "Date" : "Next renewal";
+  }
+  resetDateField();
+  f.repeat.addEventListener("change", resetDateField);
+  // On a computer, start with the cursor in the amount box. On a phone that would pop the keyboard up on every visit.
+  if (window.matchMedia("(pointer: fine)").matches) f.price.focus();
+
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+    const price = Math.round(parseFloat(f.price.value) * 100) / 100;
+    if (!(price >= 0) || !f.date.value) return;
+    const entry = {
+      id: newEntryId(),
+      name: f.name.value.trim() || formCategory,
+      price, date: f.date.value, category: formCategory,
+    };
+    const newLabelBox = document.getElementById("newLabel");
+    for (const label of normalizeLabels(newLabelBox.value)) formLabels.add(label);
+    if (formLabels.size) entry.labels = [...formLabels];
+    const newNoteBox = document.getElementById("newNote");
+    if (newNoteBox.value.trim()) entry.note = newNoteBox.value.trim();
+    applyRepeat(entry, f.repeat.value);
+    entries.push(entry);
+    if (isRecurring(entry)) rollForward(); else selectedMonth = monthKeyOf(entry.date);
+    if (selectedCategory !== ALL && selectedCategory !== entry.category) selectCategory(ALL);
+    recordChange(); save(); render();
+    f.price.value = ""; f.name.value = ""; f.repeat.value = "once"; categoryChosen = false;
+    newLabelBox.value = ""; formLabels.clear();
+    newNoteBox.value = ""; newNoteBox.hidden = true;
+    document.getElementById("labelPicker").hidden = true;
+    renderLabelChips();
+    resetDateField();
+    f.price.focus();
+  });
+
+  // Typing a name you've used before fills in what it usually is: its category, amount and labels.
+  // It never overrides a category you already tapped or an amount you already typed.
+  function rememberFromName() {
+    const typed = f.name.value.trim().toLowerCase();
+    if (!typed) return;
+    const matches = entries.filter(entry => entry.name.toLowerCase() === typed).sort((a, b) => b.date.localeCompare(a.date));
+    const match = matches.find(entry => !isRecurring(entry)) || matches[0];
+    if (!match) return;
+    if (!categoryChosen) { formCategory = match.category; renderChips(); }
+    if (f.price.value === "" && !isRecurring(match)) f.price.value = match.price;
+    if (!formLabels.size && match.labels) {
+      for (const label of match.labels) formLabels.add(label);
+      renderLabelChips();
+    }
+  }
+  f.name.addEventListener("change", rememberFromName);
+
+  function renderNameOptions() {
+    const options = document.getElementById("nameOptions");
+    options.innerHTML = "";
+    const names = [...entries].sort((a, b) => b.date.localeCompare(a.date)).map(entry => entry.name);
+    for (const name of [...new Set(names)].slice(0, 80)) {
+      const option = document.createElement("option");
+      option.value = name;
+      options.appendChild(option);
+    }
+  }
+
+  document.getElementById("search").addEventListener("input", event => {
+    searchText = event.target.value.trim().toLowerCase();
+    render();
+  });
+
+  const breakdown = document.getElementById("breakdown");
+  try { breakdown.open = localStorage.getItem(BREAKDOWN_KEY) === "1"; } catch {}
+  breakdown.addEventListener("toggle", () => {
+    try { localStorage.setItem(BREAKDOWN_KEY, breakdown.open ? "1" : "0"); } catch {}
+  });
+
+  document.getElementById("addNoteToggle").onclick = () => {
+    const noteBox = document.getElementById("newNote");
+    noteBox.hidden = !noteBox.hidden;
+    if (!noteBox.hidden) noteBox.focus();
+  };
+  document.getElementById("addLabelToggle").onclick = () => {
+    const picker = document.getElementById("labelPicker");
+    picker.hidden = !picker.hidden;
+    if (!picker.hidden) document.getElementById("newLabel").focus();
+  };
+  document.getElementById("newLabel").addEventListener("keydown", event => {
+    if (event.key !== "Enter") return;
+    event.preventDefault();
+    for (const label of normalizeLabels(event.target.value)) formLabels.add(label);
+    event.target.value = "";
+    renderLabelChips();
+  });
+
+  document.getElementById("previousMonth").onclick = () => { selectedMonth = shiftMonth(selectedMonth, -1); render(); };
+  document.getElementById("nextMonth").onclick = () => { selectedMonth = shiftMonth(selectedMonth, 1); render(); };
+  document.getElementById("thisMonth").onclick = () => { selectedMonth = monthKeyOf(formatDate(today())); render(); };
+
+  // The old currency menu is gone; drop its saved choice.
+  try { localStorage.removeItem("subscriptions.currency"); } catch {}
+
+  // ── Category manager: add, rename, recolor, delete ──
+
+  const categoryDialog = document.getElementById("categoryDialog");
+  const categoryForm = document.getElementById("categoryForm");
+  const categoryFields = categoryForm.elements;
+  let editingCategoryName = null;
+  let chosenColor = SWATCHES[0];
+
+  function openCategoryManager() {
+    startCategoryForm(null);
+    renderCategoryManager();
+    if (!categoryDialog.open) categoryDialog.showModal();
+    categoryFields.name.focus();
+  }
+
+  function renderCategoryManager() {
+    const list = document.getElementById("categoryList");
+    list.innerHTML = "";
+    for (const category of categories) {
+      const count = entries.filter(entry => entry.category === category.name).length;
+      const row = document.createElement("li");
+      row.innerHTML = `
+        <span class="look"></span>
+        <span class="categoryText"><span class="categoryName"></span><span class="categoryCount"></span></span>
+        <button type="button" class="editCategory">Edit</button>
+        <button type="button" class="deleteCategory">Delete</button>`;
+      row.querySelector(".look").textContent = category.emoji;
+      row.querySelector(".look").style.setProperty("--cat", category.color);
+      row.querySelector(".categoryName").textContent = category.name;
+      row.querySelector(".categoryCount").textContent = count === 1 ? "1 entry" : `${count} entries`;
+      row.querySelector(".editCategory").onclick = () => startCategoryForm(category.name);
+      const deleteButton = row.querySelector(".deleteCategory");
+      deleteButton.hidden = category.name === "Other"; // "Other" is where deleted categories' entries go
+      deleteButton.onclick = () => deleteCategory(category.name);
+      list.appendChild(row);
+    }
+  }
+
+  function renderSwatches() {
+    const container = document.getElementById("swatches");
+    container.innerHTML = "";
+    for (const color of SWATCHES) {
+      const swatch = document.createElement("button");
+      swatch.type = "button";
+      swatch.style.setProperty("--cat", color);
+      swatch.setAttribute("aria-label", `Color ${color}`);
+      swatch.setAttribute("aria-pressed", String(color === chosenColor));
+      swatch.onclick = () => { chosenColor = color; renderSwatches(); };
+      container.appendChild(swatch);
+    }
+  }
+
+  function renderEmojiChoices() {
+    const container = document.getElementById("emojiChoices");
+    container.innerHTML = "";
+    for (const emoji of EMOJI_SUGGESTIONS) {
+      const choice = document.createElement("button");
+      choice.type = "button";
+      choice.textContent = emoji;
+      choice.onclick = () => { categoryFields.emoji.value = emoji; };
+      container.appendChild(choice);
+    }
+  }
+
+  // Fill the form for adding a new category, or for editing an existing one.
+  function startCategoryForm(name) {
+    editingCategoryName = name;
+    const category = name ? categories.find(item => item.name === name) : null;
+    categoryFields.name.value = category ? category.name : "";
+    categoryFields.emoji.value = category ? category.emoji : "";
+    chosenColor = category ? category.color : SWATCHES[categories.length % SWATCHES.length];
+    document.getElementById("categoryFormTitle").textContent = category ? `Edit ${category.name}` : "Add a category";
+    document.getElementById("saveCategory").textContent = category ? "Save" : "Add category";
+    document.getElementById("cancelCategoryEdit").hidden = !category;
+    document.getElementById("categoryError").textContent = "";
+    renderSwatches();
+    renderEmojiChoices();
+    if (category) categoryFields.name.focus();
+  }
+
+  categoryForm.addEventListener("submit", event => {
+    event.preventDefault();
+    const name = categoryFields.name.value.trim();
+    const emoji = firstGrapheme(categoryFields.emoji.value) || "🏷️";
+    if (!name) return;
+    if (categories.some(category => category.name.toLowerCase() === name.toLowerCase() && category.name !== editingCategoryName)) {
+      document.getElementById("categoryError").textContent = `There is already a category called ${name}.`;
+      return;
+    }
+    if (editingCategoryName) {
+      const category = categories.find(item => item.name === editingCategoryName);
+      if (name !== editingCategoryName) renameCategoryEverywhere(editingCategoryName, name);
+      Object.assign(category, { name, emoji, color: chosenColor });
+    } else {
+      categories.push({ name, emoji, color: chosenColor });
+      formCategory = name;
+      categoryChosen = true;
+    }
+    recordChange(); save(); render();
+    startCategoryForm(null);
+    renderCategoryManager();
+  });
+
+  function renameCategoryEverywhere(oldName, newName) {
+    for (const entry of entries) if (entry.category === oldName) entry.category = newName;
+    if (formCategory === oldName) formCategory = newName;
+    if (selectedCategory === oldName) selectCategory(newName);
+  }
+
+  // Entries in a deleted category move to "Other"; nothing is lost.
+  function deleteCategory(name) {
+    const affected = entries.filter(entry => entry.category === name);
+    const note = affected.length ? ` Its ${affected.length} entries will move to Other.` : "";
+    if (!confirm(`Delete the ${name} category?${note}`)) return;
+    for (const entry of affected) entry.category = "Other";
+    categories = categories.filter(category => category.name !== name);
+    if (formCategory === name) formCategory = "Other";
+    if (selectedCategory === name) selectCategory(ALL);
+    recordChange(); save(); render();
+    startCategoryForm(null);
+    renderCategoryManager();
+  }
+
+  document.getElementById("manageCategories").onclick = openCategoryManager;
+  document.getElementById("closeCategories").onclick = () => categoryDialog.close();
+  document.getElementById("cancelCategoryEdit").onclick = () => startCategoryForm(null);
+  categoryDialog.addEventListener("click", event => { if (event.target === categoryDialog) categoryDialog.close(); });
+  categoryDialog.addEventListener("close", () => f.price.focus());
+
+  // ── Backup: export / import, reminder, and auto-save to a linked file ──
+
+  function readNumber(key) {
+    try { return Number(localStorage.getItem(key)) || 0; } catch { return 0; }
+  }
+  function writeNumber(key, value) {
+    try { localStorage.setItem(key, String(value)); } catch {}
+  }
+  function recordChange() { writeNumber(LAST_CHANGE_KEY, Date.now()); }
+  function recordBackup() { writeNumber(LAST_BACKUP_KEY, Date.now()); }
+
+  // Version 2 added one-off expenses (entries with type "once"); version 3 adds each category's
+  // emoji and color and the labels on entries. The entries still live under the "subscriptions"
+  // key so older backup files and this format stay interchangeable. Version 4 adds yearly entries
+  // (frequency "yearly"); version 5 adds an optional note on entries.
+  function buildBackup() {
+    return JSON.stringify({
+      app: "expenses", version: 5, savedAt: new Date().toISOString(),
+      currency: "NGN", subscriptions: entries, categories,
+    }, null, 2);
+  }
+
+  // Accepts a backup file (or a bare array of entries) and returns the valid entries.
+  function readBackup(text) {
+    let data;
+    try { data = JSON.parse(text); } catch { throw new Error("This file is not an expenses backup."); }
+    const list = Array.isArray(data) ? data : data && data.subscriptions;
+    if (!Array.isArray(list)) throw new Error("This file is not an expenses backup.");
+    const valid = list.filter(entry => entry && typeof entry.name === "string" && entry.name.trim()
+      && typeof entry.price === "number" && entry.price >= 0 && /^\d{4}-\d{2}-\d{2}$/.test(entry.date));
+    for (const entry of valid) {
+      const labels = Array.isArray(entry.labels) ? normalizeLabels(entry.labels) : [];
+      if (labels.length) entry.labels = labels; else delete entry.labels;
+      if (entry.frequency !== "yearly") delete entry.frequency;
+      if (typeof entry.note === "string" && entry.note.trim()) entry.note = entry.note.trim().slice(0, 300); else delete entry.note;
+    }
+    const savedCategories = !Array.isArray(data) && Array.isArray(data.categories) ? cleanCategories(data.categories) : [];
+    return { entries: valid, skipped: list.length - valid.length, categories: savedCategories };
+  }
+
+  function applyBackup(backup) {
+    entries = backup.entries.map((entry, index) => ({
+      ...entry, id: entry.id || Date.now().toString(36) + index, name: entry.name.trim(),
+    }));
+    if (backup.categories.length) categories = backup.categories;
+    editingId = null;
+    fillMissingCategories();
+    upgradeOlderEntries();
+    rollForward();
+    save();
+    render();
+  }
+
+  function downloadBackup() {
+    const blob = new Blob([buildBackup()], { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `expenses-backup-${formatDate(today())}.json`;
+    document.body.appendChild(link);
+    link.click();
+    link.remove();
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    recordBackup();
+    showStatus(`Backup downloaded: ${link.download}`);
+    renderBackupReminder();
+  }
+
+  async function importBackupFile(file) {
+    try {
+      const backup = readBackup(await file.text());
+      if (!backup.entries.length) throw new Error("No entries found in this file.");
+      const message = `Replace your current ${entries.length} entries with the ${backup.entries.length} in ${file.name}?`
+        + (backup.skipped ? `\n(${backup.skipped} broken entries in the file will be skipped.)` : "");
+      if (!confirm(message)) return;
+      applyBackup(backup);
+      recordBackup();
+      showStatus(`Imported ${backup.entries.length} entries from ${file.name}.`);
+      renderBackupReminder();
+    } catch (error) {
+      showStatus(`Couldn't import ${file.name}: ${error.message}`, true);
+    }
+  }
+
+  function showStatus(text, isProblem = false) {
+    const status = document.getElementById("backupStatus");
+    status.textContent = text;
+    status.classList.toggle("problem", isProblem);
+  }
+
+  function describeAge(timestamp) {
+    const days = Math.floor((Date.now() - timestamp) / 86400000);
+    return days === 0 ? "today" : days === 1 ? "yesterday" : `${days} days ago`;
+  }
+
+  // Nudge to export when nothing is auto-saving and there are changes no backup has captured.
+  function renderBackupReminder() {
+    const lastBackup = readNumber(LAST_BACKUP_KEY);
+    const lastChange = readNumber(LAST_CHANGE_KEY);
+    const needed = entries.length && linkedFileState !== "connected" && (!lastBackup || lastChange > lastBackup);
+    document.getElementById("backupReminder").hidden = !needed;
+    document.getElementById("backupReminderText").textContent = !lastBackup
+      ? "Your list is only saved in this browser. Export a backup to keep it safe."
+      : `You've made changes since your last backup (${describeAge(lastBackup)}).`;
+  }
+
+  document.getElementById("exportButton").onclick = downloadBackup;
+  document.getElementById("reminderExport").onclick = downloadBackup;
+  const importInput = document.getElementById("importInput");
+  document.getElementById("importButton").onclick = () => importInput.click();
+  importInput.addEventListener("change", () => {
+    if (importInput.files[0]) importBackupFile(importInput.files[0]);
+    importInput.value = "";
+  });
+
+  // Auto-save to a file the user picks (Chrome, Edge and other Chromium browsers only).
+  // The file handle is kept in IndexedDB so the link survives restarts; Chrome may ask
+  // for permission again, which needs a click on "Reconnect file".
+  const fileSavingSupported = "showSaveFilePicker" in window && "indexedDB" in window;
+
+  function openHandleDatabase() {
+    return new Promise((resolve, reject) => {
+      const request = indexedDB.open("subscriptions", 1);
+      request.onupgradeneeded = () => request.result.createObjectStore("handles");
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+  }
+  async function useHandleStore(mode, action) {
+    const database = await openHandleDatabase();
+    return new Promise((resolve, reject) => {
+      const request = action(database.transaction("handles", mode).objectStore("handles"));
+      request.onsuccess = () => resolve(request.result);
+      request.onerror = () => reject(request.error);
+    });
+  }
+  const storeFileHandle = handle => useHandleStore("readwrite", store => store.put(handle, "linkedFile"));
+  const loadFileHandle = () => useHandleStore("readonly", store => store.get("linkedFile"));
+  const removeFileHandle = () => useHandleStore("readwrite", store => store.delete("linkedFile"));
+
+  function saveToLinkedFile() {
+    if (!linkedFile || linkedFileState !== "connected") return;
+    const contents = buildBackup();
+    fileWriteQueue = fileWriteQueue.then(async () => {
+      const writable = await linkedFile.createWritable();
+      await writable.write(contents);
+      await writable.close();
+      recordBackup();
+      showStatus(`Auto-saving to ${linkedFile.name}. Last saved ${new Date().toLocaleTimeString()}.`);
+    }).catch(error => {
+      showStatus(`Couldn't save to ${linkedFile.name}: ${error.message}`, true);
+    });
+  }
+
+  // When connecting, the file wins if it already holds entries (e.g. after browser data was cleared).
+  async function connectLinkedFile(askBeforeLoading) {
+    const backup = await readLinkedFile();
+    linkedFileState = "connected";
+    if (backup && backup.entries.length && buildBackupKey(backup.entries) !== buildBackupKey(entries)) {
+      const load = !askBeforeLoading || confirm(
+        `${linkedFile.name} already has ${backup.entries.length} entries. Load them?\n\n`
+        + `OK loads the file's list. Cancel keeps the list on this page and overwrites the file.`);
+      if (load) { applyBackup(backup); renderFileButtons(); return; }
+    }
+    save();
+    renderFileButtons();
+  }
+  function buildBackupKey(list) {
+    return JSON.stringify(list.map(entry => [entry.name, entry.price, entry.date, entry.category, entry.type || "", (entry.labels || []).join(","), entry.frequency || "", entry.note || ""]));
+  }
+  async function readLinkedFile() {
+    try {
+      const text = await (await linkedFile.getFile()).text();
+      return text.trim() ? readBackup(text) : null;
+    } catch { return null; }
+  }
+
+  async function linkFile() {
+    try {
+      linkedFile = await window.showSaveFilePicker({
+        suggestedName: "subscriptions.json",
+        types: [{ description: "Expenses backup", accept: { "application/json": [".json"] } }],
+      });
+      await storeFileHandle(linkedFile);
+      await connectLinkedFile(true);
+    } catch (error) {
+      if (error.name !== "AbortError") showStatus(`Couldn't link the file: ${error.message}`, true);
+    }
+  }
+
+  async function reconnectFile() {
+    if (await linkedFile.requestPermission({ mode: "readwrite" }) === "granted") await connectLinkedFile(false);
+  }
+
+  async function unlinkFile() {
+    if (!confirm(`Stop auto-saving to ${linkedFile.name}? The file itself is kept.`)) return;
+    await removeFileHandle();
+    linkedFile = null;
+    linkedFileState = "none";
+    showStatus("");
+    renderFileButtons();
+  }
+
+  function renderFileButtons() {
+    document.getElementById("linkFileButton").hidden = !fileSavingSupported || linkedFileState !== "none";
+    document.getElementById("reconnectFileButton").hidden = linkedFileState !== "needs-permission";
+    document.getElementById("unlinkFileButton").hidden = linkedFileState === "none";
+    if (linkedFileState === "needs-permission") {
+      showStatus(`Click "Reconnect file" to keep auto-saving to ${linkedFile.name}.`, true);
+    }
+    renderBackupReminder();
+  }
+
+  async function restoreLinkedFileOnStartup() {
+    if (!fileSavingSupported) return;
+    try {
+      linkedFile = await loadFileHandle();
+      if (!linkedFile) return;
+      if (await linkedFile.queryPermission({ mode: "readwrite" }) === "granted") {
+        await connectLinkedFile(false);
+      } else {
+        linkedFileState = "needs-permission";
+      }
+    } catch {
+      linkedFile = null;
+      linkedFileState = "none";
+    }
+    renderFileButtons();
+  }
+
+  document.getElementById("linkFileButton").onclick = linkFile;
+  document.getElementById("reconnectFileButton").onclick = reconnectFile;
+  document.getElementById("unlinkFileButton").onclick = unlinkFile;
+
+  render();
+  renderFileButtons();
+  restoreLinkedFileOnStartup();
+</script>
+</body>
+</html>
