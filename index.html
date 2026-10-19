@@ -69,13 +69,15 @@
     background: rgba(255, 255, 255, .16); color: #fff; font-size: 1.25rem; line-height: 1;
   }
   .monthbar .thismonth { font-size: .8rem; }
-  .hero .figures { display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr); gap: 14px; align-items: end; }
   .hero .label { color: rgba(255, 255, 255, .72); font-size: .82rem; }
   .hero .amount {
     font-size: clamp(1.6rem, 8vw, 2.4rem); font-weight: 720; letter-spacing: -.02em;
     font-variant-numeric: tabular-nums; white-space: nowrap; line-height: 1.15;
   }
-  .hero .amount.small { font-size: clamp(1rem, 4.6vw, 1.35rem); font-weight: 650; letter-spacing: 0; }
+  .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+  .tile { background: rgba(255, 255, 255, .14); border-radius: 14px; padding: 8px 10px; min-width: 0; }
+  .tile .label { font-size: .75rem; }
+  .tileAmount { font-weight: 680; font-size: clamp(.72rem, 3.5vw, .98rem); font-variant-numeric: tabular-nums; white-space: nowrap; }
   .hero .yearly { color: rgba(255, 255, 255, .82); font-size: .88rem; margin-top: 10px; }
   .comparison { font-size: .88rem; color: rgba(255, 255, 255, .7); }
   .comparison.up { color: #ffd2cc; }
@@ -99,6 +101,7 @@
     border: 1px solid color-mix(in srgb, var(--soon) 55%, var(--line)); color: var(--soon);
     border-radius: 14px; padding: 8px 8px 8px 14px; margin-bottom: 14px; font-size: .9rem;
   }
+  .reminder .reminderDetail { font-size: .82rem; opacity: .85; }
   .reminder button { flex: none; min-height: 36px; padding: 4px 14px; background: none; color: inherit; border-color: currentColor; }
 
   /* Add form */
@@ -122,6 +125,7 @@
     min-height: 0; background: none; border: none; color: var(--muted); padding: 2px 0;
     font-size: .9rem; text-decoration: underline dotted; text-underline-offset: 3px;
   }
+  .details { display: grid; gap: 10px; }
   .labelPicker { display: grid; gap: 8px; }
   .options { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
   .field { display: grid; gap: 4px; }
@@ -240,6 +244,7 @@
   .backup { margin-top: 30px; padding-top: 16px; border-top: 1px solid var(--line); }
   .backup .actions { grid-area: auto; justify-self: stretch; display: flex; flex-wrap: wrap; gap: 8px; }
   .backup .actions button { min-height: 38px; font-size: .88rem; padding: 4px 14px; color: var(--muted); }
+  .sectionTitle { margin: 0 0 12px; color: var(--muted); font-size: .8rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
   .backup .status { color: var(--muted); font-size: .85rem; margin-top: 10px; }
   .backup .status.problem { color: var(--danger); }
 
@@ -252,9 +257,10 @@
   }
   /* Very narrow screens: stack the two totals instead of squeezing them side by side. */
   @media (max-width: 360px) {
-    .hero .figures { grid-template-columns: 1fr; gap: 8px; }
     .hero .amount { font-size: 1.9rem; }
-    .hero .amount.small { font-size: 1.15rem; }
+    .tiles { grid-template-columns: 1fr; gap: 6px; }
+    .tile { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; padding: 8px 12px; }
+    .tileAmount { font-size: .98rem; }
     .composer .row { grid-template-columns: 1fr; }
   }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
@@ -263,7 +269,7 @@
 <body>
 <main>
   <header class="top">
-    <h1>Expenses</h1>
+    <h1>💸 Expenses</h1>
     <button type="button" id="manageCategories" class="ghost">Categories</button>
   </header>
 
@@ -274,18 +280,15 @@
       <button type="button" class="thismonth" id="thisMonth" hidden>This month</button>
       <button type="button" id="nextMonth" aria-label="Next month">›</button>
     </div>
-    <div class="figures">
-      <div>
-        <div class="label" id="totalLabel">Total spent</div>
-        <div class="amount" id="total">0.00</div>
-      </div>
-      <div>
-        <div class="label">Recurring per year</div>
-        <div class="amount small" id="yearTotal">0.00</div>
-      </div>
+    <div class="label" id="totalLabel">Total spent</div>
+    <div class="amount" id="total">0.00</div>
+    <div class="comparison" id="comparison"></div>
+    <div class="tiles">
+      <div class="tile"><div class="label">One-off</div><div class="tileAmount" id="oneOffAmount">0</div></div>
+      <div class="tile"><div class="label">Recurring</div><div class="tileAmount" id="recurringAmount">0</div></div>
+      <div class="tile" title="Recurring costs for a whole year (monthly recurring x 12)"><div class="label">Annual est.</div><div class="tileAmount" id="yearTotal">0</div></div>
     </div>
     <div class="yearly" id="yearly"></div>
-    <div class="comparison" id="comparison"></div>
   </section>
 
   <details class="breakdown" id="breakdown">
@@ -294,8 +297,8 @@
   </details>
 
   <div class="reminder" id="backupReminder" hidden>
-    <span id="backupReminderText"></span>
-    <button type="button" id="reminderExport">Export backup</button>
+    <div><strong>⚠️ You have unsaved changes</strong><div class="reminderDetail" id="backupReminderText"></div></div>
+    <button type="button" id="reminderExport">Back up now</button>
   </div>
 
   <form id="form" class="composer" autocomplete="off">
@@ -306,14 +309,15 @@
     </div>
     <div class="chips" id="chips" role="group" aria-label="Category"></div>
     <div class="extras">
-      <button type="button" class="linkButton" id="addLabelToggle">+ label</button>
-      <button type="button" class="linkButton" id="addNoteToggle">+ note</button>
+      <button type="button" class="linkButton" id="addDetailsToggle">+ Label / note</button>
     </div>
-    <div class="labelPicker" id="labelPicker" hidden>
-      <div class="chips" id="labelChips" role="group" aria-label="Labels"></div>
-      <input id="newLabel" placeholder="New label, press Enter" aria-label="New label">
+    <div class="details" id="details" hidden>
+      <div class="labelPicker">
+        <div class="chips" id="labelChips" role="group" aria-label="Labels"></div>
+        <input id="newLabel" placeholder="New label, press Enter" aria-label="New label">
+      </div>
+      <input id="newNote" placeholder="Add a note, e.g. who it was for or why" aria-label="Note" maxlength="300">
     </div>
-    <input id="newNote" placeholder="Add a note, e.g. who it was for or why" aria-label="Note" maxlength="300" hidden>
     <div class="options">
       <label class="field"><span id="dateLabel">Date</span>
         <input name="date" type="date" required>
@@ -336,7 +340,8 @@
   <nav class="tabs" id="labelTabs" role="tablist" aria-label="Labels" hidden></nav>
   <ul id="list"></ul>
 
-  <section class="backup" aria-label="Backup">
+  <section class="backup" aria-label="Backup and restore">
+    <h2 class="sectionTitle">💾 Backup &amp; Restore</h2>
     <div class="actions">
       <button type="button" id="exportButton">Export backup</button>
       <button type="button" id="importButton">Import backup</button>
@@ -413,6 +418,13 @@
   function describeDate(isoDate) {
     const date = parse(isoDate);
     return (date.getFullYear() === new Date().getFullYear() ? shortDateFormat : longDateFormat).format(date);
+  }
+  // For the three small figures: whole naira from 10,000 up (and when there are no kobo), so they fit.
+  const wholeMoney = new Intl.NumberFormat(undefined, { style: "currency", currency: "NGN", currencyDisplay: "narrowSymbol", minimumFractionDigits: 0, maximumFractionDigits: 0 });
+  function formatTileMoney(value) {
+    if (Math.abs(value) >= 10000) return wholeMoney.format(Math.round(value));  // the big total keeps the exact kobo
+    const rounded = Math.round(value * 100) / 100;
+    return (Number.isInteger(rounded) ? wholeMoney : money).format(rounded);
   }
   const monthFormat = new Intl.DateTimeFormat(undefined, { month: "long", year: "numeric" });
 
@@ -670,11 +682,11 @@
     const oneOffTotal = sumPrices(oneOff);
     document.getElementById("totalLabel").textContent = "Total spent";
     document.getElementById("total").textContent = money.format(recurringTotal + oneOffTotal);
-    document.getElementById("yearTotal").textContent = money.format(recurringTotal * 12);
-    const where = (activeCategory === ALL ? "" : ` · ${activeCategory}`) + (activeLabel ? ` · #${activeLabel}` : "");
-    document.getElementById("yearly").textContent = visible.length
-      ? `${money.format(recurringTotal)} recurring + ${money.format(oneOffTotal)} one-off${where}`
-      : "";
+    document.getElementById("oneOffAmount").textContent = formatTileMoney(oneOffTotal);
+    document.getElementById("recurringAmount").textContent = formatTileMoney(recurringTotal);
+    document.getElementById("yearTotal").textContent = formatTileMoney(recurringTotal * 12);
+    const filters = [activeCategory === ALL ? "" : activeCategory, activeLabel ? "#" + activeLabel : ""].filter(Boolean);
+    document.getElementById("yearly").textContent = filters.length ? "Showing " + filters.join(" · ") : "";
   }
 
   function renderList(visible) {
@@ -953,8 +965,15 @@
       };
       container.appendChild(chip);
     }
-    document.getElementById("addLabelToggle").textContent = formLabels.size
-      ? `# ${[...formLabels].join(", ")}` : "+ label";
+    renderDetailsToggle();
+  }
+
+  // The "+ Label / note" link summarizes what has been filled in while the panel is closed.
+  function renderDetailsToggle() {
+    const parts = [];
+    if (formLabels.size) parts.push("# " + [...formLabels].join(", "));
+    if (document.getElementById("newNote").value.trim()) parts.push("note");
+    document.getElementById("addDetailsToggle").textContent = parts.length ? parts.join(" · ") : "+ Label / note";
   }
 
   function renderCategoryOptions() {
@@ -1023,8 +1042,8 @@
     recordChange(); save(); render();
     f.price.value = ""; f.name.value = ""; f.repeat.value = "once"; categoryChosen = false;
     newLabelBox.value = ""; formLabels.clear();
-    newNoteBox.value = ""; newNoteBox.hidden = true;
-    document.getElementById("labelPicker").hidden = true;
+    newNoteBox.value = "";
+    document.getElementById("details").hidden = true;
     renderLabelChips();
     resetDateField();
     f.price.focus();
@@ -1069,16 +1088,12 @@
     try { localStorage.setItem(BREAKDOWN_KEY, breakdown.open ? "1" : "0"); } catch {}
   });
 
-  document.getElementById("addNoteToggle").onclick = () => {
-    const noteBox = document.getElementById("newNote");
-    noteBox.hidden = !noteBox.hidden;
-    if (!noteBox.hidden) noteBox.focus();
+  document.getElementById("addDetailsToggle").onclick = () => {
+    const details = document.getElementById("details");
+    details.hidden = !details.hidden;
+    if (!details.hidden) document.getElementById("newLabel").focus();
   };
-  document.getElementById("addLabelToggle").onclick = () => {
-    const picker = document.getElementById("labelPicker");
-    picker.hidden = !picker.hidden;
-    if (!picker.hidden) document.getElementById("newLabel").focus();
-  };
+  document.getElementById("newNote").addEventListener("input", renderDetailsToggle);
   document.getElementById("newLabel").addEventListener("keydown", event => {
     if (event.key !== "Enter") return;
     event.preventDefault();
@@ -1324,8 +1339,8 @@
     const needed = entries.length && linkedFileState !== "connected" && (!lastBackup || lastChange > lastBackup);
     document.getElementById("backupReminder").hidden = !needed;
     document.getElementById("backupReminderText").textContent = !lastBackup
-      ? "Your list is only saved in this browser. Export a backup to keep it safe."
-      : `You've made changes since your last backup (${describeAge(lastBackup)}).`;
+      ? "Your list is only saved in this browser."
+      : `Last backup ${describeAge(lastBackup)}.`;
   }
 
   document.getElementById("exportButton").onclick = downloadBackup;
